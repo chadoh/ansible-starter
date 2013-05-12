@@ -1,5 +1,15 @@
 ---
-- name: setup ppd_dev db
-  mysql_db: name=ppd_dev state=present
-- name: setup ppd_test db
-  mysql_db: name=ppd_test state=present
+- name: create db user
+  sudo: yes
+  sudo_user: postgres
+  postgresql_user: name={{ db_user }} password=secret
+                   role_attr_flags=CREATEDB,NOSUPERUSER
+- name: create dbs
+  sudo: yes
+  sudo_user: postgres
+  postgresql_db: name=$item owner={{ db_user }}
+                 encoding='UTF-8' lc_collate='en_US.UTF-8' lc_ctype='en_US.UTF-8' template='template0'
+                 state=present
+  with_items:
+    - dev
+    - test

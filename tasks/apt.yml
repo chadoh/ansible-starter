@@ -19,11 +19,11 @@
     - git-core
     - build-essential
     - curl
-    - python-mysqldb
-    - mysql-server
-    - mysql-client
-    - libmysql-ruby
-    - libmysqlclient-dev
+    - python-psycopg2
+    - postgresql
+    - postgresql-client
+    - libpq-dev
+    - postgresql-contrib
     - memcached
     - openjdk-6-jre # needed for compiling assets with Jammit
     - nfs-common # make virtualbox faster
