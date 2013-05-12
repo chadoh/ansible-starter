@@ -1,0 +1,14 @@
+---
+- hosts: vagrant
+  vars:
+    ruby: ree-1.8.7-2012.02
+    phantomjs: phantomjs-1.9.0-linux-x86_64
+  tasks:
+    - include: tasks/apt.yml
+    - include: tasks/ruby.yml
+    - include: tasks/shell_setup.yml
+    - include: tasks/db.yml
+    - include: tasks/phantomjs.yml
+
+    - name: bundle install
+      shell: 'executable=/bin/bash chdir=/vagrant . "$HOME/.rvm/scripts/rvm" && bundle'

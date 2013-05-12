@@ -1,0 +1,35 @@
+---
+- name: Ensure we can add apt repos
+  apt: pkg=python-software-properties state=latest update_cache=yes
+  sudo: yes
+
+- name: add apt repo for redis
+  # from http://ph.ly/dotdeb
+  apt_repository: repo="deb http://packages.dotdeb.org squeeze all"
+  sudo: yes
+
+- name: Update apt
+  apt: update_cache=yes
+  sudo: yes
+
+- name: Install base packages
+  apt: pkg=$item state=latest
+  sudo: yes
+  with_items:
+    - git-core
+    - build-essential
+    - curl
+    - python-mysqldb
+    - mysql-server
+    - mysql-client
+    - libmysql-ruby
+    - libmysqlclient-dev
+    - memcached
+    - openjdk-6-jre # needed for compiling assets with Jammit
+    - nfs-common # make virtualbox faster
+
+- name: install packages that require forcing
+  apt: pkg=$item state=latest force=yes
+  sudo: yes
+  with_items:
+    - redis-server

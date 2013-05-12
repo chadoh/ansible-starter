@@ -1,0 +1,15 @@
+---
+- name: check if .bashrc and .bash_profile have been correctly set up
+  shell: file -h .bashrc | grep symbolic
+  register: bashrc_linked
+  ignore_errors: yes
+- name: Remove .bashrc
+  file: path=~/.bashrc state=absent
+  when: bashrc_linked.rc != 0
+- name: symlink .bashrc
+  file: dest=~/.bashrc src=/vagrant/ansible/files/bashrc state=link
+- name: Remove .bash_profile
+  file: path=~/.bash_profile state=absent
+  when: bashrc_linked.rc != 0
+- name: symlink .bash_profile
+  file: dest=~/.bash_profile src=/vagrant/ansible/files/bash_profile state=link

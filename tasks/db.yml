@@ -1,0 +1,5 @@
+---
+- name: setup ppd_dev db
+  mysql_db: name=ppd_dev state=present
+- name: setup ppd_test db
+  mysql_db: name=ppd_test state=present
