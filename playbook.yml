@@ -12,4 +12,4 @@
     - include: tasks/phantomjs.yml
 
     - name: bundle install
-      shell: 'executable=/bin/bash chdir=/vagrant . "$HOME/.rvm/scripts/rvm" && bundle'
+      shell: 'executable=/bin/bash chdir=/vagrant . "$HOME/.rvm/scripts/rvm" && rvm use --default {{ ruby }} && bundle'
