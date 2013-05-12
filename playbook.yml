@@ -1,7 +1,7 @@
 ---
 - hosts: vagrant
   vars:
-    ruby: ree-1.8.7-2012.02
+    ruby: ruby-1.9.2-p180
     phantomjs: phantomjs-1.9.0-linux-x86_64
   tasks:
     - include: tasks/apt.yml
