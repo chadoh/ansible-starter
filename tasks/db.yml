@@ -3,7 +3,7 @@
   sudo: yes
   sudo_user: postgres
   postgresql_user: name={{ db_user }} password=secret
-                   role_attr_flags=CREATEDB,NOSUPERUSER
+                   role_attr_flags=CREATEDB,NOSUPERUSER,LOGIN
 - name: create dbs
   sudo: yes
   sudo_user: postgres
@@ -11,5 +11,11 @@
                  encoding='UTF-8' lc_collate='en_US.UTF-8' lc_ctype='en_US.UTF-8' template='template0'
                  state=present
   with_items:
-    - dev
-    - test
+    - $dev_db
+    - $test_db
+- name: configure postgres to allow rails to log in
+  sudo: yes
+  template: src=templates/pg_hba.conf
+            dest=/etc/postgresql/9.1/main/pg_hba.conf
+            owner=postgres group=postgres mode=640
+            backup=yes
