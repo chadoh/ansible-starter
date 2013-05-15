@@ -9,6 +9,7 @@
   with_items:
     - git-core
     - build-essential
+    - fontconfig # needed for phantomjs
     - curl
     - python-psycopg2
     - postgresql
