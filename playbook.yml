@@ -7,6 +7,11 @@
     dev_db: dev
     test_db: test
   tasks:
+    - name: make sure the system encoding is utf-8
+      sudo: yes
+      template: src=templates/locale dest=/etc/default/locale
+                owner=root group=root mode=644
+
     - include: tasks/apt.yml
     - include: tasks/ruby.yml
     - include: tasks/shell_setup.yml
